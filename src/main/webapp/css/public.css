@@ -1,0 +1,19 @@
+.el-divider--horizontal{ margin: 12px 0 18px;}
+.text-right{ text-align: right;}
+.text-center{ text-align: center;}
+.titlemp{ padding-top: 0; margin-top: 0;}
+.margin-top{ margin-top: 30px;}
+.margin-bottom{ margin-bottom: 15px;}
+.trbgc{ background-color: #eef1f6;}
+.el-form-item {
+    margin-bottom: 15px;
+}
+.contentBox{ text-align: center; padding: 0 20px;}
+.contentBox h1{ color: #303133;}
+.contentBox p{color: #606266; font-size: 14px;}
+.contentBox p span{ padding: 0 10px;}
+.contentBox p span i{color: #E6A23C;}
+.content{padding-bottom: 20px; line-height: 32px; text-align: left; font-size: 14px; padding: 10px 0px; text-indent: 2em; color: #606266;}
+.contentLine{ color: #E6A23C;}
+.listLogo{ width: 22px; height: 22px; border-radius: 50%;}
+.evbox{ padding: 20px;}

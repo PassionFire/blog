@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="css/index.css">
+		<link rel="stylesheet" href="css/public.css">
+		<!-- 引入组件库 -->
+		<script src="js/vue.v2.6.14.js .js"></script>
+		<script src="js/index.js"></script>
+
+	</head>
+	<body>
+		<div id="app">
+			<!-- 面包屑 -->
+			<el-row>
+				<el-col :span="24">
+					<el-breadcrumb separator="/">
+						<el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+						<el-breadcrumb-item>运营数所统计</el-breadcrumb-item>
+					</el-breadcrumb>
+				</el-col>
+			</el-row>
+			<el-divider></el-divider>
+			<el-row>
+				<el-col :span="24">
+					<h3 class="text-center titlemp">运营数所统计</h3>
+					<div class="el-table el-table--fit el-table--border el-table--enable-row-hover el-table--enable-row-transition"
+					 style="width: 100%;">
+
+						
+						<div class="el-table__body-wrapper is-scrolling-none">
+							<table class="el-table__body el-table--small" size="small" width="100%" cellspacing="0" cellpadding="0" border="0">
+								<colgroup>
+									<col name="el-table_95_column_399" width="180">
+									<col>
+									<col name="el-table_95_column_401" width="180">
+									<col >
+								</colgroup>
+								<tbody>
+									<tr class="el-table__row">
+										<td rowspan="1" colspan="4" class=" el-table_95_column_399 trbgc">
+											<div class="cell text-center"><b>文章数据统计</b></div>
+										</td>
+									</tr>
+									<tr class="el-table__row">
+										<td rowspan="1" colspan="1" class="el-table_95_column_399  ">
+											<div class="cell">本日文章数量</div>
+										</td>
+										<td rowspan="1" colspan="1" class="el-table_95_column_400  ">
+											<div class="cell">23</div>
+										</td>
+										<td rowspan="1" colspan="1" class="el-table_95_column_399">
+											<div class="cell">本周文章数量</div>
+										</td>
+										<td rowspan="1" colspan="1" class="el-table_95_column_400  ">
+											<div class="cell">45</div>
+										</td>
+									</tr>
+									<tr class="el-table__row">
+										<td rowspan="1" colspan="1" class="el-table_95_column_399">
+											<div class="cell">本月文章数量</div>
+										</td>
+										<td rowspan="1" colspan="1" class="el-table_95_column_400  ">
+											<div class="cell">230</div>
+										</td>
+										<td rowspan="1" colspan="1" class="el-table_95_column_399">
+											<div class="cell">文章总数量</div>
+										</td>
+										<td rowspan="1" colspan="1" class="el-table_95_column_400  ">
+											<div class="cell">8909</div>
+										</td>
+									</tr>
+									<tr class="el-table__row">
+										<td rowspan="1" colspan="4" class=" el-table_95_column_399 trbgc">
+											<div class="cell text-center"><b>评论数据统计</b></div>
+										</td>
+									</tr>
+									<tr class="el-table__row">
+										<td rowspan="1" colspan="1" class="el-table_95_column_399">
+											<div class="cell">本日评论数量</div>
+										</td>
+										<td rowspan="1" colspan="1" class="el-table_95_column_400  ">
+											<div class="cell">23</div>
+										</td>
+										<td rowspan="1" colspan="1" class="el-table_95_column_399">
+											<div class="cell">本周评论数量</div>
+										</td>
+										<td rowspan="1" colspan="1" class="el-table_95_column_400  ">
+											<div class="cell">45</div>
+										</td>
+									</tr>
+									<tr class="el-table__row">
+										<td rowspan="1" colspan="1" class="el-table_95_column_399">
+											<div class="cell">本月评论数量</div>
+										</td>
+										<td rowspan="1" colspan="1" class="el-table_95_column_400  ">
+											<div class="cell">230</div>
+										</td>
+										<td rowspan="1" colspan="1" class="el-table_95_column_399">
+											<div class="cell">文章评论量</div>
+										</td>
+										<td rowspan="1" colspan="1" class="el-table_95_column_400  ">
+											<div class="cell">8909</div>
+										</td>
+									</tr>
+									<tr class="el-table__row ">
+										<td rowspan="1" colspan="4" class=" el-table_95_column_399 trbgc">
+											<div class="cell text-center "><b>类别数据统计</b></div>
+										</td>
+									</tr>
+									<tr class="el-table__row">
+										<td rowspan="1" colspan="1" class="el-table_95_column_399  ">
+											<div class="cell">大类别数量</div>
+										</td>
+										<td rowspan="1" colspan="1" class="el-table_95_column_400  ">
+											<div class="cell">23</div>
+										</td>
+										<td rowspan="1" colspan="1" class="el-table_95_column_399  ">
+											<div class="cell">小类别数量</div>
+										</td>
+										<td rowspan="1" colspan="1" class="el-table_95_column_400  ">
+											<div class="cell">45</div>
+										</td>
+									</tr>
+									<tr class="el-table__row">
+										<td rowspan="1" colspan="4" class=" el-table_95_column_399  trbgc">
+											<div class="cell text-center"><b>用户数据统计</b></div>
+										</td>
+									</tr>
+									<tr class="el-table__row">
+										<td rowspan="1" colspan="1" class="el-table_95_column_399 ">
+											<div class="cell">管理员数量</div>
+										</td>
+										<td rowspan="1" colspan="1" class="el-table_95_column_400  ">
+											<div class="cell">23</div>
+										</td>
+										<td rowspan="1" colspan="1" class="el-table_95_column_399">
+											<div class="cell">普通用户数量</div>
+										</td>
+										<td rowspan="1" colspan="1" class="el-table_95_column_400  ">
+											<div class="cell">45</div>
+										</td>
+									</tr>
+									<!---->
+								</tbody>
+							</table>
+							<!---->
+							<!---->
+						</div>
+
+					</div>
+				</el-col>
+			</el-row>
+
+		</div>
+	</body>
+	<script>
+		// 创建根实例
+		new Vue({
+			el: '#app',
+			data: {
+				currentPage: 4,
+				tableData: [{
+						id: 1456266,
+						date: '入门部署和体验',
+						name: '策',
+						age: '小强',
+						email: '2016/07/22 13:34',
+					},
+					{
+						id: 1456266,
+						date: '入门部署和体验',
+						name: '策',
+						age: '小强',
+						email: '2016/07/22 13:34',
+					},
+					{
+						id: 1456266,
+						date: '入门部署和体验',
+						name: '策',
+						age: '小强',
+						email: '2016/07/22 13:34',
+					}
+				]
+			},
+			methods: {
+				handleSizeChange(val) {
+					console.log(`每页 ${val} 条`);
+				},
+				handleCurrentChange(val) {
+					console.log(`当前页: ${val}`);
+				},
+				handleUpdate(id) {},
+				handleDelete(id) {
+					this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+						confirmButtonText: '确定',
+						cancelButtonText: '取消',
+						type: 'warning'
+					}).then(() => {
+						this.$message({
+							type: 'success',
+							message: '删除成功!'
+						});
+					}).catch(() => {
+						this.$message({
+							type: 'info',
+							message: '已取消删除'
+						});
+					});
+				},
+				tosave() {
+					location.href = "save-blog.html";
+				}
+			}
+		})
+	</script>
+</html>

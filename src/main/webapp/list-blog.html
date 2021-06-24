@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="css/index.css">
+		<link rel="stylesheet" href="css/public.css">
+		<!-- 引入组件库 -->
+		<script src="js/vue.v2.6.14.js .js"></script>
+		<script src="js/index.js"></script>
+		<script src="js/axios.v0.21.1.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 面包屑 -->
+			<el-row>
+			  <el-col :span="24">
+				  <el-breadcrumb separator="/">
+				    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+				    <el-breadcrumb-item><a href="/">博客管理</a></el-breadcrumb-item>
+				    <el-breadcrumb-item>文章列表</el-breadcrumb-item>
+				  </el-breadcrumb>
+			  </el-col>
+			</el-row>
+			<el-divider></el-divider>
+			<el-row>
+			  <el-col :span="20">
+				  <el-form :inline="true" class="demo-form-inline">
+				    <el-form-item label="标题">
+				      <el-input size="small" v-model="search.title" placeholder="标题"></el-input>
+				    </el-form-item>
+				    <el-form-item label="作者">
+				      <el-input size="small"  v-model="search.author" placeholder="作者"></el-input>
+				    </el-form-item>
+				    <el-form-item>
+				      <el-button size="small" type="primary" @click="doSearch" ><i class="el-icon-search"></i> 查询</el-button>
+				    </el-form-item>
+				  </el-form>
+			  </el-col>
+			  <el-col :span="4" class="text-right" >
+				  <el-button @click="tosave" type="primary" size="small"><i class="el-icon-edit"></i> 发布博客</el-button>
+			  </el-col>
+			</el-row>
+			<el-row>
+			  <el-col :span="24">
+				  <el-table size="small" :header-cell-style="{background:'#eef1f6',color:'#606266'}" :data="tableData" style="width: 100%">
+				  	<el-table-column prop="blog.bid" label="id" width="70" ></el-table-column>
+					<el-table-column label="标题">
+				  	      <template slot-scope="scope">
+								<el-link type="primary" :href="'show-blog.html?bid='+scope.row.blog.bid">
+									<i class="el-icon-info"></i> {{ scope.row.blog.title }} </el-link>
+				  	      </template>
+				  	    </el-table-column>
+				  	<el-table-column prop="type.typename" label="博客类别" width="120" ></el-table-column>
+					<el-table-column prop="user.name" label="作者" width="80" ></el-table-column>
+					<el-table-column
+					      label="日期"
+					      width="180">
+					      <template slot-scope="scope">
+					        <i class="el-icon-time"></i>
+					        <span style="margin-left: 10px">{{ scope.row.blog.date }}</span>
+					      </template>
+					    </el-table-column>
+					<el-table-column label="管理菜单"  width="130" align="center">
+						<template slot-scope="scope">
+							<el-button type="primary" round size="mini" @click="handleEdit(scope.row)"><i class="el-icon-edit"></i></el-button>
+							<el-button size="mini" round type="danger" @click="handleDelete(scope.row.blog.bid)"><i class="el-icon-delete"></i></el-button>
+						</template>
+					</el-table-column>
+				  </el-table>
+			  </el-col>
+			</el-row>
+			<el-row>
+			  <el-col :span="24" class="text-right margin-top">
+				  <el-pagination
+				        @size-change="handleSizeChange"
+				        @current-change="handleCurrentChange"
+				        :current-page="pageInfo.pageNum"
+				        :page-sizes="[5,10,20,50]"
+				        :page-size="pageInfo.pageSize"
+				        layout="total, sizes, prev, pager, next, jumper"
+				        :total="pageInfo.total">
+				      </el-pagination>
+			  </el-col>
+			</el-row>
+
+			<!-- 	修改 -->
+			<el-dialog title="修改博客" :visible.sync="dialogVisible" :close-on-click-modal="false" width="30%">
+
+				<el-form :model="ruleForm" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+					<el-form-item label="标题" prop="blog.title">
+						<el-input v-model="ruleForm.title" style="width: 210px;"></el-input>
+					</el-form-item>
+					<el-form-item label="博客类别" prop="blog.type_fk">
+						<el-select v-model="ruleForm.typeFk" placeholder="请选择博客类别">
+							<el-option label="生活类博客" :value="1"></el-option>
+							<el-option label="技术类博客" :value="2"></el-option>
+							<el-option label="校园类博客" :value="3"></el-option>
+							<el-option label="综合型博客" :value="4"></el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item label="作者" prop="blog.u_fk">
+						<el-input readonly v-model="ruleForm.ufk" style="width: 210px;"></el-input>
+					</el-form-item>
+				</el-form>
+
+				<span slot="footer" class="dialog-footer">
+				<el-button @click="dialogVisible = false">取 消</el-button>
+				<el-button type="primary" @click="submitForm('ruleForm')">确 定</el-button>
+			</span>
+			</el-dialog>
+
+		</div>
+	</body>
+	<script>
+		// 创建根实例
+		new Vue({
+			el: '#app',
+			data: {
+				search:{
+					title:'',
+					author:''
+				},
+				pageInfo: {
+					pageNum:1,
+					pageSize:5,
+					total:0,
+				},
+				tableData:[],
+				//修改对话框
+				dialogVisible:false,
+				//修改表单
+				ruleForm: {
+					id: '',
+					title: '',
+					typeFk: '',
+					ufk: '',
+				},
+			},
+			created() {
+				this.loadList();
+			},
+			methods: {
+				loadList() {
+					axios.post(`/blog/${this.pageInfo.pageNum}/${this.pageInfo.pageSize}`,this.search).then(response=>{
+						this.pageInfo = response.data;
+						this.tableData = this.pageInfo.list;
+					})
+				},
+				doSearch() {
+					this.loadList();
+				},
+				/* 修改回显博客信息 */
+				handleEdit(row) {
+					let r = {...row};//将row的属性给r，而不是引用
+					this.ruleForm = r.blog;
+					this.ruleForm.ufk = r.user.name;
+					// alert(this.ruleForm);
+					this.dialogVisible = true;
+				},
+			      handleSizeChange(val) {
+					this.pageInfo.pageSize = val;
+			        this.loadList();
+			      },
+			      handleCurrentChange(val) {
+			        this.pageInfo.pageNum = val;
+			        this.loadList();
+			      },
+				  //handleUpdate(id){},
+				submitForm(formName) {
+					axios.put(`/blog`,this.ruleForm).then(resp=>{
+						if(resp.data){
+							this.$message.success("修改成功");
+						}else{
+							this.$message.error("修改失败");
+						}
+						setTimeout(()=>{
+							location.href = 'list-blog.html';
+						},1000);
+					});
+				},
+				  handleDelete(id){
+					  this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+					            confirmButtonText: '确定',
+					            cancelButtonText: '取消',
+					            type: 'warning'
+					          }).then(() => {
+					          	axios.delete(`/blog/${id}`).then(response=>{
+					          		if (response.data){
+										this.$message({
+											type: 'success',
+											message: '删除成功!'
+										});
+										this.loadList();
+									}else {
+					          			this.$message.error("删除失败");
+									}
+
+								});
+
+					          }).catch(() => {
+					            this.$message({
+					              type: 'info',
+					              message: '已取消删除'
+					            });          
+					          });
+				  },
+				  tosave(){
+					  location.href="save-blog.html";
+				  }
+			}
+		})
+	</script>
+</html>

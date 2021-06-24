@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="css/index.css">
+		<link rel="stylesheet" href="css/public.css">
+		<link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+		<link href="css/style.min862f.css?v=4.1.0" rel="stylesheet">
+		<link href="css/pinglun.css" rel="stylesheet">
+		<!-- 引入组件库 -->
+		<script src="js/vue.v2.6.14.js .js"></script>
+		<script src="js/index.js"></script>
+		<script src="js/jquery.min.js?v=2.1.4"></script>
+		<script src="js/axios.v0.21.1.min.js"></script>
+		<script src="js/url.js"></script>
+		<script>
+			let id = getUrlParam('bid');
+		</script>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 面包屑 -->
+			<el-row>
+			  <el-col :span="24">
+				  <el-breadcrumb separator="/">
+				    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+				    <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>
+				    <el-breadcrumb-item>活动列表</el-breadcrumb-item>
+				    <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+				  </el-breadcrumb>
+			  </el-col>
+			</el-row>
+			<el-divider></el-divider>
+			<!-- 文章正文 -->
+			<el-row>
+			  <el-col :span="24" class="contentBox">
+				  <h2>{{pageBlog.blog.title}}</h2>
+				  <p>
+					  <span><i class="el-icon-s-order"></i> {{pageBlog.type.typename}}</span>
+					  <span><i class="el-icon-s-custom"></i> {{pageBlog.user.name}}</span>
+					  <span><i class="el-icon-date"></i> {{pageBlog.blog.date}}</span>
+				  </p>
+				  <div class="content" v-html="pageBlog.blog.content">
+
+				  </div>
+			  </el-col>
+			</el-row>
+			<!-- 评论列表 -->
+			<el-row>
+			  <el-col :span="24" class="evbox">
+				  <h2>评论：</h2>
+				  <div class="social-feed-box">
+				      <div id="qq">
+				  		<p>发表你的看法</p>
+				  		<div class="message" contentEditable='true'></div>
+				  		<div class="But">
+				  			<img src="images/bba_thumb.gif" class='bq' />
+				  			<span class='submit'>发表</span>
+				  			<!--face begin-->
+				  			<div class="face">
+				  				<ul>
+				  					<li><img src="icon/smilea_thumb.gif" title="呵呵]"></li>
+				  					<li><img src="icon/tootha_thumb.gif" title="嘻嘻]"></li>
+				  					<li><img src="icon/laugh.gif" title="[哈哈]"></li>
+				  					<li><img src="icon/tza_thumb.gif" title="[可爱]"></li>
+				  					<li><img src="icon/kl_thumb.gif" title="[可怜]"></li>
+				  					<li><img src="icon/kbsa_thumb.gif" title="[挖鼻屎]"></li>
+				  					<li><img src="icon/cj_thumb.gif" title="[吃惊]"></li>
+				  					<li><img src="icon/shamea_thumb.gif" title="[害羞]"></li>
+				  					<li><img src="icon/zy_thumb.gif" title="[挤眼]"></li>
+				  					<li><img src="icon/bz_thumb.gif" title="[闭嘴]"></li>
+				  					<li><img src="icon/bs2_thumb.gif" title="[鄙视]"></li>
+				  					<li><img src="icon/lovea_thumb.gif" title="[爱你]"></li>
+				  					<li><img src="icon/sada_thumb.gif" title="[泪]"></li>
+				  					<li><img src="icon/heia_thumb.gif" title="[偷笑]"></li>
+				  					<li><img src="icon/qq_thumb.gif" title="[亲亲]"></li>
+				  					<li><img src="icon/sb_thumb.gif" title="[生病]"></li>
+				  					<li><img src="icon/mb_thumb.gif" title="[太开心]"></li>
+				  					<li><img src="icon/ldln_thumb.gif" title="[懒得理你]"></li>
+				  					<li><img src="icon/yhh_thumb.gif" title="[右哼哼]"></li>
+				  					<li><img src="icon/zhh_thumb.gif" title="[左哼哼]"></li>
+				  					<li><img src="icon/x_thumb.gif" title="[嘘]"></li>
+				  					<li><img src="icon/cry.gif" title="[衰]"></li>
+				  					<li><img src="icon/wq_thumb.gif" title="[委屈]"></li>
+				  					<li><img src="icon/t_thumb.gif" title="[吐]"></li>
+				  					<li><img src="icon/k_thumb.gif" title="[打哈气]"></li>
+				  					<li><img src="icon/bba_thumb.gif" title="[抱抱]"></li>
+				  					<li><img src="icon/angrya_thumb.gif" title="[怒]"></li>
+				  					<li><img src="icon/yw_thumb.gif" title="[疑问]"></li>
+				  					<li><img src="icon/cza_thumb.gif" title="[馋嘴]"></li>
+				  					<li><img src="icon/88_thumb.gif" title="[拜拜]"></li>
+				  					<li><img src="icon/sk_thumb.gif" title="[思考]"></li>
+				  					<li><img src="icon/sweata_thumb.gif" title="[汗]"></li>
+				  					<li><img src="icon/sleepya_thumb.gif" title="[困]"></li>
+				  					<li><img src="icon/sleepa_thumb.gif" title="[睡觉]"></li>
+				  					<li><img src="icon/money_thumb.gif" title="[钱]"></li>
+				  					<li><img src="icon/sw_thumb.gif" title="[失望]"></li>
+				  					<li><img src="icon/cool_thumb.gif" title="[酷]"></li>
+				  					<li><img src="icon/hsa_thumb.gif" title="[花心]"></li>
+				  					<li><img src="icon/hatea_thumb.gif" title="[哼]"></li>
+				  					<li><img src="icon/gza_thumb.gif" title="[鼓掌]"></li>
+				  					<li><img src="icon/dizzya_thumb.gif" title="[晕]"></li>
+				  					<li><img src="icon/bs_thumb.gif" title="[悲伤]"></li>
+				  					<li><img src="icon/crazya_thumb.gif" title="[抓狂]"></li>
+				  					<li><img src="icon/h_thumb.gif" title="[黑线]"></li>
+				  					<li><img src="icon/yx_thumb.gif" title="[阴险]"></li>
+				  					<li><img src="icon/nm_thumb.gif" title="[怒骂]"></li>
+				  					<li><img src="icon/hearta_thumb.gif" title="[心]"></li>
+				  					<li><img src="icon/unheart.gif" title="[伤心]"></li>
+				  					<li><img src="icon/pig.gif" title="[猪头]"></li>
+				  					<li><img src="icon/ok_thumb.gif" title="[ok]"></li>
+				  					<li><img src="icon/ye_thumb.gif" title="[耶]"></li>
+				  					<li><img src="icon/good_thumb.gif" title="[good]"></li>
+				  					<li><img src="icon/no_thumb.gif" title="[不要]"></li>
+				  					<li><img src="icon/z2_thumb.gif" title="[赞]"></li>
+				  					<li><img src="icon/come_thumb.gif" title="[来]"></li>
+				  					<li><img src="icon/sad_thumb.gif" title="[弱]"></li>
+				  					<li><img src="icon/lazu_thumb.gif" title="[蜡烛]"></li>
+				  					<li><img src="icon/clock_thumb.gif" title="[钟]"></li>
+				  					<li><img src="icon/cake.gif" title="[蛋糕]"></li>
+				  					<li><img src="icon/m_thumb.gif" title="[话筒]"></li>
+				  					<li><img src="icon/weijin_thumb.gif" title="[围脖]"></li>
+				  					<li><img src="icon/lxhzhuanfa_thumb.gif" title="[转发]"></li>
+				  					<li><img src="icon/lxhluguo_thumb.gif" title="[路过这儿]"></li>
+				  					<li><img src="icon/bofubianlian_thumb.gif" title="[bofu变脸]"></li>
+				  					<li><img src="icon/gbzkun_thumb.gif" title="[gbz困]"></li>
+				  					<li><img src="icon/boboshengmenqi_thumb.gif" title="[生闷气]"></li>
+				  					<li><img src="icon/chn_buyaoya_thumb.gif" title="[不要啊]"></li>
+				  					<li><img src="icon/daxiongleibenxiong_thumb.gif" title="[dx泪奔]"></li>
+				  					<li><img src="icon/cat_yunqizhong_thumb.gif" title="[运气中]"></li>
+				  					<li><img src="icon/youqian_thumb.gif" title="[有钱]"></li>
+				  				</ul>
+				  			</div>
+				  			<!--face end-->
+				  		</div>
+				  	</div>
+				      
+				  </div>
+				  <div class="social-feed-box" v-for="ev in pageBlog.evaluateList">
+				      <div class="social-avatar">
+				          <a href="#" class="pull-left">
+				              <img alt="image" src="images/bg4.jpg">
+				          </a>
+				          <div class="media-body">
+				              <a href="#">
+								  {{ev.user.name}}
+									  <el-button style="float: right;" @click="del" type="danger" size="mini" plain round>删除</el-button>
+				                  </a>
+				              <small class="text-muted">{{ev.addtime}}</small>
+				          </div>
+				      </div>
+				      <div class="social-body">
+				          <p>
+				              {{ev.content}}
+				          </p>
+				      </div>
+				  </div>
+<!--				  <div class="social-feed-box">-->
+<!--				      <div class="social-avatar">-->
+<!--				          <a href="#" class="pull-left">-->
+<!--				              <img alt="image" src="images/bg4.jpg">-->
+<!--				          </a>-->
+<!--				          <div class="media-body">-->
+<!--				              <a href="#">-->
+<!--				                      避雷范儿-->
+<!--									  <el-button style="float: right;" @click="del" type="danger" size="mini" plain round>删除</el-button>-->
+<!--				                  </a>-->
+<!--				              <small class="text-muted"> 16 小时前</small>-->
+<!--				          </div>-->
+<!--				      </div>-->
+<!--				      <div class="social-body">-->
+<!--				          <p>-->
+<!--				              第一个真的好美 就是噪音太大了 挺唯美的意境瞬间变成工厂了-->
+<!--				          </p>-->
+<!--				      </div>-->
+<!--				  </div>-->
+<!--				  <div class="social-feed-box">-->
+<!--				      <div class="social-avatar">-->
+<!--				          <a href="#" class="pull-left">-->
+<!--				              <img alt="image" src="images/bg4.jpg">-->
+<!--				          </a>-->
+<!--				          <div class="media-body">-->
+<!--				              <a href="#">-->
+<!--				                      kamppi-->
+<!--									  <el-button style="float: right;" @click="del" type="danger" size="mini" plain round>删除</el-button>-->
+<!--				                  </a>-->
+<!--				              <small class="text-muted"> 6 小时前</small>-->
+<!--				          </div>-->
+<!--				      </div>-->
+<!--				      <div class="social-body">-->
+<!--				          <p>-->
+<!--				              好美的装置艺术，第二个让我想起了海中缓缓游动的鲸鱼。-->
+<!--				          </p>-->
+<!--				      </div>-->
+<!--				  </div>-->
+<!--				  <div class="social-feed-box">-->
+<!--				      <div class="social-avatar">-->
+<!--				          <a href="#" class="pull-left">-->
+<!--				              <img alt="image" src="images/bg4.jpg">-->
+<!--				          </a>-->
+<!--				          <div class="media-body">-->
+<!--				              <a href="#">-->
+<!--				                      kamppi-->
+<!--									  <el-button style="float: right;" @click="del" type="danger" size="mini" plain round>删除</el-button>-->
+<!--				                  </a>-->
+<!--				              <small class="text-muted">6 小时前</small>-->
+<!--				          </div>-->
+<!--				      </div>-->
+<!--				      <div class="social-body">-->
+<!--				          <p>-->
+<!--				              “Flylight 的灯管并不固定，由一套软件控制：每一个灯管都根据与其它灯管的互动进行移动，就像一群真正的鸟群一样。” 好像介绍的描述不对，灯管是固定的，控制的只是点亮和熄灭的时间，模拟成一团亮点移动-->
+<!--				          </p>-->
+<!--				      </div>-->
+<!--				  </div>-->
+			  </el-col>
+			</el-row>
+			<el-divider><span class="contentLine">谢谢观赏</span></el-divider>
+			<!-- 底部 -->
+			<el-row>
+			  <el-col :span="24" class="text-center margin-top">
+				    <el-button @click="back" type="primary"><i class="el-icon-back"></i> 返回列表</el-button>
+			  </el-col>
+			</el-row>
+		</div>
+	</body>
+	<script>
+		// 创建根实例
+		new Vue({
+			el: '#app',
+			data: {
+				pageBlog:{
+					"blog": {
+						"content": '',
+						"date": '',
+						"title": '',
+					},
+					"evaluateList": [
+					],
+					"type": {
+						"typename": ''
+					},
+					"user": {
+						"truename": '',
+					}
+				}
+			},
+			created() {
+				this.loadBlog();
+			},
+			methods: {
+				loadBlog() {
+					axios.get(`/blog/${id}`).then(response=>{
+						this.pageBlog = response.data;
+					});
+				},
+			      back(){
+					  location.href="list-blog.html";
+				  },
+				  del(){
+					  alert("del");
+				  }
+			    }
+		})
+	</script>
+	
+	<script type="text/javascript">
+		
+		//点击小图片，显示表情
+		$(".bq").click(function (e) {
+			$(".face").slideDown(); //慢慢向下展开
+			e.stopPropagation(); //阻止冒泡事件
+		});
+	
+		//在桌面任意地方点击，关闭表情框
+		$(document).click(function () {
+			$(".face").slideUp(); //慢慢向上收
+		});
+	
+		//点击小图标时，添加功能
+		$(".face ul li").click(function () {
+			var simg = $(this).find("img").clone();
+			$(".message").append(simg); //将表情添加到输入框
+		});
+	
+		//点击发表按扭，发表内容
+		$("span.submit").click(function () {
+			var txt = $(".message").html(); //获取输入框内容
+			if (!txt) {
+				$('.message').focus(); //自动获取焦点
+				return;
+			}
+			alert(txt);
+			$('.message').html('') // 清空输入框
+	
+		});
+	
+	</script>
+</html>

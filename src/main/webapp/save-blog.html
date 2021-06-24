@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="css/index.css">
+		<link rel="stylesheet" href="css/public.css">
+		<!-- 引入组件库 -->
+		<script src="js/vue.v2.6.14.js .js"></script>
+		<script src="js/index.js"></script>
+		<script type="text/javascript" charset="utf-8" src="ueditor/ueditor.config.js"></script>
+		<script type="text/javascript" charset="utf-8" src="ueditor/ueditor.all.min.js"> </script>
+		<script type="text/javascript" charset="utf-8" src="ueditor/lang/zh-cn/zh-cn.js"></script>
+		<script src="js/axios.v0.21.1.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 面包屑 -->
+			<el-row>
+			  <el-col :span="24">
+				  <el-breadcrumb separator="/">
+				    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+				    <el-breadcrumb-item><a href="/">博客管理</a></el-breadcrumb-item>
+				    <el-breadcrumb-item>文章发布</el-breadcrumb-item>
+				  </el-breadcrumb>
+			  </el-col>
+			</el-row>
+			<el-divider></el-divider>
+			<el-row>
+			  <el-col :span="24">
+				  <el-form ref="form" size="small" :model="form" label-width="80px">
+				 
+				    <el-form-item label="类别">
+				      <el-select @change="change" v-model="bigTypeId" placeholder="请选择大类">
+				        <el-option v-for="type in bigType" :label="type.typename" :value="type.typeid"></el-option>
+				      </el-select>
+					  <el-select v-model="form.typeFk" placeholder="请选择小类">
+					    <el-option v-for="type in smallType" :label="type.typename" :value="type.typeid"></el-option>
+					  </el-select>
+				    </el-form-item>
+					<el-form-item label="标题">
+					  <el-input v-model="form.title"></el-input>
+					</el-form-item>
+					<el-form-item label="正文">
+					  <script id="editor" type="text/plain" style="height:400px;"></script>
+					</el-form-item>
+				   
+				    <el-form-item>
+				      <el-button type="primary" @click="onSubmit"><i class="el-icon-s-promotion"></i> 立即创建</el-button>
+				      <el-button><i class="el-icon-delete"></i> 取消</el-button>
+				    </el-form-item>
+				  </el-form>
+			  </el-col>
+			</el-row>
+		</div>
+	</body>
+	<script>
+		// 创建根实例
+		new Vue({
+			el: '#app',
+			data: {
+				bigTypeId:'',//被选中的大类别id
+				bigType:[],//大类别集合
+				smallType:[],//小类别集合
+				form: {
+					typeFk:'',
+					content:'',
+					title:'',
+				}
+			},
+			created() {
+				this.loadBigType();
+			},
+			methods: {
+				loadBigType() {
+					axios.get(`/type/0`).then(response=>{
+						this.bigType = response.data;
+					});
+				},
+				change() {
+					//每次大类别改变，先清空小类别的id
+					this.form.typeFk='';
+					//当选择大类别后,获取大类别id,根据大类别id获取小类别id
+					axios.get(`/type/${this.bigTypeId}`).then(response=>{
+						this.smallType = response.data;
+					});
+				},
+				onSubmit() {
+					//获取富文本编辑器的内容
+					this.form.content = UE.getEditor('editor').getContent();
+					//将表单提交到后台
+					axios.post('/blog',this.form).then(response=>{
+						if (response.data){
+							this.$message.success("添加成功");
+							setTimeout(function () {
+								location.href='list-blog.html';
+							},1000);
+						}else {
+							this.$message.error("添加失败");
+						}
+					});
+					console.log('submit!');
+				}
+			}
+		})
+	</script>
+	<script>
+		var ue = UE.getEditor('editor');
+	</script>
+</html>

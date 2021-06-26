@@ -39,4 +39,52 @@ public class TypeController {
             return null;
         }
     }
+
+    //增加
+    @PostMapping()
+    public Boolean save(@RequestBody Type type){
+        try {
+            typeService.save(type);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //修改
+    @PutMapping()
+    public Boolean update(@RequestBody Type type){
+        try {
+            typeService.update(type);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //删除
+    @DeleteMapping("/{id}")
+    public Boolean remove(@PathVariable("id") Integer id){
+        try {
+            typeService.remove(id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //删除小类,将小类设为null
+    @DeleteMapping("/smallType/{id}")
+    public Boolean updateSmallType(@PathVariable("id") Integer id){
+        try {
+            typeService.updateSmallType(id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

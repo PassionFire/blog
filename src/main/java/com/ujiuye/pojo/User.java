@@ -33,6 +33,10 @@ public class User implements Serializable {
         this.logo = logo;
     }
 
+    public User(String password) {
+        this.password = password;
+    }
+
     public User() {
         super();
     }

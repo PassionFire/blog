@@ -5,6 +5,7 @@ import com.ujiuye.pojo.Type;
 import com.ujiuye.pojo.TypeExample;
 import com.ujiuye.service.TypeService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -45,6 +46,29 @@ public class TypeServiceImpl implements TypeService {
             }
         }
         return typeList;
+    }
+
+    @Override
+    public int save(Type type) {
+        return typeMapper.insert(type);
+    }
+
+    @Override
+    public int remove(Integer typeid) {
+        return typeMapper.deleteByPrimaryKey(typeid);
+    }
+
+    //将小类设为null
+    @Override
+    public int updateSmallType(Integer typeid) {
+        Type type = typeMapper.selectByPrimaryKey(typeid);
+        type.setTypePid(null);
+        return typeMapper.updateByPrimaryKeySelective(type);
+    }
+
+    @Override
+    public int update(Type type) {
+        return typeMapper.updateByPrimaryKeySelective(type);
     }
 
 

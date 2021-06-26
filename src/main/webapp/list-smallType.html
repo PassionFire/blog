@@ -39,18 +39,37 @@
 			  <el-col :span="24">
 				  <el-table size="small" :header-cell-style="{background:'#eef1f6',color:'#606266'}" :data="tableData" style="width: 100%">
 				  	<el-table-column prop="typeid" label="id" width="70" ></el-table-column>
-				  	<el-table-column prop="typename" label="大类名称" width="180" ></el-table-column>
+				  	<el-table-column prop="typename" label="小类名称" width="180" ></el-table-column>
 					<el-table-column prop="typedec" label="类别描述" ></el-table-column>
 					<el-table-column label="管理菜单"  width="130" align="center">
 						<template slot-scope="scope">
-							<el-button type="primary" round size="mini" @click="handleUpdate(scope.row.typeid)"><i class="el-icon-edit"></i></el-button>
-							<el-button size="mini" round type="danger" @click="handleDelete(scope.row.typeid)"><i class="el-icon-delete"></i></el-button>
+<!--							<el-button type="primary" round size="mini" @click="handleUpdate(scope.row.typeid)"><i class="el-icon-edit"></i></el-button>-->
+							<el-button type="primary" round size="mini" @click="handleEdit(scope.row)"><i class="el-icon-edit"></i></el-button>
+							<el-button size="mini" round type="danger" @click="handleDelete(scope.row.typePid)"><i class="el-icon-delete"></i></el-button>
 						</template>
 					</el-table-column>
 				  </el-table>
 			  </el-col>
 			</el-row>
-			
+
+			<!-- 	修改 -->
+			<el-dialog title="修改类别" :visible.sync="dialogVisible" :close-on-click-modal="false" width="30%">
+
+				<el-form :model="ruleForm" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+					<el-form-item label="小类名称" prop="type.typename">
+						<el-input v-model="ruleForm.typename" style="width: 210px;"></el-input>
+					</el-form-item>
+					<el-form-item label="类别描述" prop="type.typedes">
+						<el-input v-model="ruleForm.typedes" style="width: 210px;"></el-input>
+					</el-form-item>
+				</el-form>
+
+				<span slot="footer" class="dialog-footer">
+				<el-button @click="dialogVisible = false">取 消</el-button>
+				<el-button type="primary" @click="submitForm('ruleForm')">确 定</el-button>
+			</span>
+			</el-dialog>
+
 		</div>
 	</body>
 	<script>
@@ -66,7 +85,14 @@
 						typename: '',
 						typeList: [{value: '', label: ''}]
 					}
-				]
+				],
+				//修改对话框
+				dialogVisible:false,
+				//修改表单
+				ruleForm: {
+					typename:'',
+					typedes:''
+				},
 			},
 			created() {
 				this.loadList();
@@ -78,25 +104,49 @@
 						this.tableData = response.data;
 					});
 				},
+				/* 修改回显类别信息 */
+				handleEdit(row) {
+					let r = {...row};//将row的属性给r，而不是引用
+					this.ruleForm = r;
+					this.dialogVisible = true;
+				},
 			      handleSizeChange(val) {
 			        console.log(`每页 ${val} 条`);
 			      },
 			      handleCurrentChange(val) {
 			        console.log(`当前页: ${val}`);
 			      },
-				  handleUpdate(id){
-
-				  },
+				  // handleUpdate(id){},
+				submitForm(formName) {
+					axios.put(`/type`,this.ruleForm).then(resp=>{
+						if(resp.data){
+							this.$message.success("修改成功");
+						}else{
+							this.$message.error("修改失败");
+						}
+						setTimeout(()=>{
+							location.href = 'list-smallType.html';
+						},1000);
+					});
+				},
 				  handleDelete(id){
-					  this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+					  this.$confirm('你确定要删除该小类吗？, 是否继续?', '提示', {
 					            confirmButtonText: '确定',
 					            cancelButtonText: '取消',
 					            type: 'warning'
 					          }).then(() => {
-					            this.$message({
-					              type: 'success',
-					              message: '删除成功!'
-					            });
+								  axios.delete(`/type/smallType/${id}`).then(response=> {
+									  if (response.data) {
+										  this.$message({
+											  type: 'success',
+											  message: '删除成功!'
+										  });
+										  this.loadList();
+									  } else {
+										  this.$message.error("删除失败");
+									  }
+								  });
+
 					          }).catch(() => {
 					            this.$message({
 					              type: 'info',
@@ -105,7 +155,7 @@
 					          });
 				  },
 				  tosave(){
-					  location.href="save-type.html";
+					  location.href="save-smallType.html";
 				  }
 			}
 		})

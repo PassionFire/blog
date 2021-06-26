@@ -74,6 +74,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findUserByName(String name) {
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andNameEqualTo(name);
+        List<User> userList = userMapper.selectByExample(userExample);
+        return userList;
+    }
+
+    @Override
     public User getById(Integer id) {
         return userMapper.selectByPrimaryKey(id);
     }

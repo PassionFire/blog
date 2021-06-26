@@ -14,4 +14,13 @@ public interface TypeService {
     List<Type> listByPid(int type_pid);
 
     List<Type> list();
+
+    int save(Type type);
+
+    int remove(Integer typeid);
+
+    //删除小类，将小类设为空
+    int updateSmallType(Integer typeid);
+
+    int update(Type type);
 }

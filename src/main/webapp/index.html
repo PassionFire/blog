@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="css/customer.css">
 		<!-- 引入组件库 -->
 		<script src="js/jquery-1.11.1.min.js"></script>
-		<script src="js/vue.v2.6.14.js .js"></script>
+		<script src="js/vue.v2.6.14.js%20.js"></script>
 		<script src="js/index.js"></script>
 	</head>
 	<body>
@@ -26,9 +26,11 @@
 				    <el-menu-item index="1" class="navTile"><h1>Blog 博客管理后台系统</h1></el-menu-item>
 				    
 					<el-submenu index="2" style="float: right;">
-				      <template slot="title"><img class="logo" src="images/bg4.jpg"/><span class="username">admin</span></template>
+				      <template slot="title"><img class="logo" src="images/bg4.jpg"/><span class="username">${sessionScope.user.name}</span></template>
 				      <el-menu-item index="2-1">修改信息</el-menu-item>
-				      <el-menu-item index="2-2">退出</el-menu-item>
+				      <el-menu-item index="2-2">
+						  <a href="login.html">退出</a>
+					  </el-menu-item>
 				    </el-submenu>
 					
 				    <el-menu-item index="3" style="float: right;">消息中心</el-menu-item>

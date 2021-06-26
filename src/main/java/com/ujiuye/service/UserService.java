@@ -4,6 +4,8 @@ import com.github.pagehelper.PageInfo;
 import com.ujiuye.pojo.User;
 import com.ujiuye.pojo.UserVo;
 
+import java.util.List;
+
 
 /**
  * @author: zwp
@@ -14,6 +16,9 @@ public interface UserService {
 
     //分页查询所有
     PageInfo<UserVo> list(int pageNum, int pageSize,String name,String email);
+
+    //根据名字查询用户
+    List<User> findUserByName(String name);
 
     //查单个
     User getById(Integer id);
